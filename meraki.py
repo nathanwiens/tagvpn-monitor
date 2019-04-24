@@ -1593,7 +1593,7 @@ def getdeviceuplink(apikey, networkid, serialnumber, suppressprint=False):
 def getuplinklosslatency(apikey, networkid, serialnumber, uplink, ip, timespan=7200, suppressprint=False):
     calltype = 'Uplink Loss and Latency'
     geturl = '{0}/networks/{1}/devices/{2}/lossAndLatencyHistory?uplink={3}&ip={4}&timespan={5}'.format(
-        str(base_url), str(networkid), str(serialnumber))
+        base_url, networkid, serialnumber, uplink, ip, timespan)
     headers = {
         'x-cisco-meraki-api-key': format(str(apikey)),
         'Content-Type': 'application/json'
