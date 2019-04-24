@@ -14,7 +14,9 @@ The basic flow/purpose of this functionality is:
    friendlyname_backup_down
    friendlyname_swapped
 2. On the MX Network, add the "friendlyname_primary_up" and "friendlyname_backup_down" tags from the Organization > Overview page
-3. Configure primary and backup IPSec Peers under Security & SD-WAN > Site-to-site VPN with the same private subnets. For the primary peer, add the "friendlyname_primary_up" tag, and for the backup peer, add "friendlyname_backup_up"
+3. Configure primary and backup IPSec Peers under Security & SD-WAN > Site-to-site VPN with the same private subnets. For the primary peer, add the "friendlyname_primary_up" tag, and for the backup peer, add "friendlyname_backup_down"
 4. Run the script
+
+There are two versions of the script: tagvpn_monitor_autofailback.py will automatically revert to the primary peer when ICMP reachability is restored. tagvpn_monitor_noautofailback.py will wait for the backup to fail before reverting back to the primary.
 
 With this setup, the MX will only match a peer with the "up" tag, so under normal conditions it will match the primary peer but not the backup. In a failover condition, it will no longer match the "primary_up" tag so that peer will be removed, and it will begin to match the "backup_up" tag so it will add that VPN peer. The "friendlyname_swapped" tag is used to track which Networks have failed over, and can be used to filter the Organization > Overview page for easy tracking.
